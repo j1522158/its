@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<!--フラグメントの機能により、lang="en"は省略-->
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{fragments/layout :: layout(~{::title}, ~{::body})}"> <!--thの定義 thymeleaf公式サイト3.1-->
+<head>
+    <!--<meta charset="UTF-8"> フラグメント機能で省略-->
+    <title>課題一覧 | 課題管理アプリケーション</title>
+</head>
+<body>
+<div class="container">
+    <h2 class="mt-3">課題一覧</h2>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>No</th>
+                <th>概要</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="issue : ${issueList}"> <!-- th:each issueにissueListを一つずつ格納 ※for文のようなもの-->
+            <th th:text="${issue.id}">(id)</th>
+            <td>
+                <a href="./detail.html" th:href="@{/issues/{issueId}(issueId=${issue.id})}" th:text="${issue.summary}">
+                    (summary)
+                </a>
+            </td>
+            </tr>
+        </tbody>
+    </table>
+    <a class="button secondary" href="./creationForm.html" th:href="@{/issues/creationForm}">作成</a>
+</div>
+</body>
+</html>
