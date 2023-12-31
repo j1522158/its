@@ -1,5 +1,6 @@
 package com.example.its.domain.issue;
 
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 

@@ -2,6 +2,7 @@ package com.example.its.web;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class IndexController {
@@ -10,14 +11,4 @@ public class IndexController {
     public String index() {
         return "index";
     }
-
-//    @GetMapping("/login")
-//    public String showLoginForm() {
-//        return "login";
-//    }
-//
-//    @GetMapping("/logout")
-//    public String showLogoutForm() {
-//        return "logout";
-//    }
 }
