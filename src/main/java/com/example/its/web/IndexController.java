@@ -12,12 +12,13 @@ public class IndexController {
         return "index";
     }
 
-    /**
-     * Getの「/login」
-     * @return
-     */
     @GetMapping("/login")
     public String showLoginForm() {
-        return "login"; // view名 login.html 拡張子省略&
+        return "login"; // view名 login.html 拡張子省略&resource内のパス
+    }
+
+    @GetMapping("/logout")
+    public String showLogoutForm() {
+        return "logout";
     }
 }
