@@ -10,11 +10,11 @@ public class IndexController {
     @GetMapping
     public String index() {
         return "index";
-    }
+    } // view名 login.html 拡張子省略&resource内のパス
 
     @GetMapping("/login")
     public String showLoginForm() {
-        return "login"; // view名 login.html 拡張子省略&resource内のパス
+        return "login";
     }
 
     @GetMapping("/logout")

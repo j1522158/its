@@ -20,13 +20,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        // for h2-console 本番では消してよし
-        http
-                .authorizeRequests().antMatchers("/h2-console/**").permitAll() // 開発用 localhost8080でh2-consoleにアクセスする用
-                .and()
-                .csrf().ignoringAntMatchers("/h2-console/**") //
-                .and()
-                .headers().frameOptions().disable(); // ヘッダーのフレームオプションを無効化
 
         http
                 .authorizeRequests()
