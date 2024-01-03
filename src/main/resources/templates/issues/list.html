@@ -13,6 +13,7 @@
     <tr>
         <th>#</th>
         <th>概要</th>
+        <th></th> <!-- 削除ボタン用の列 -->
     </tr>
     </thead>
     <tbody>
@@ -22,6 +23,12 @@
             <a href="./detail.html" th:href="@{/issues/{issueId}(issueId=${issue.id})}" th:text="${issue.summary}">
                 (summary)
             </a>
+        </td>
+        <td>
+            <form method="post" th:action="@{/issues/delete/{issueId}(issueId=${issue.id})}" style="display: inline;">
+                <input type="hidden" name="_method" value="post" />
+                <input type="submit" value="削除" onclick="return confirm('削除しますか?');" />
+            </form>
         </td>
     </tr>
     </tbody>
