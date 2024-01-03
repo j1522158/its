@@ -11,6 +11,11 @@ import org.springframework.stereotype.Service;
 import java.util.Collections;
 import java.util.List;
 
+
+/**
+ * UserDetails: ユーザ名、パスワード、権限など保持するインターフェース
+ * UserDetailsService: UserDetailを取得するメソッドを持つインターフェース
+ */
 @Service
 @RequiredArgsConstructor
 public class CustomUserDetailsService implements UserDetailsService {
@@ -19,6 +24,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+
         return userRepository.findByUsername(username)
                 .map(
                         user -> new CustomUserDetails(

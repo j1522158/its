@@ -8,41 +8,33 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+/**
+ * SpringSecurityの設定クラス
+ */
 @EnableWebSecurity
-@RequiredArgsConstructor //lombok
+@RequiredArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    // @RequiredArgsConstructorでfinalかつ初期化されていない値がコンストラクタとして生成される
-    // CustomUserDetailsServiceクラスが代入される
     private final UserDetailsService userDetailsService;
-    // PasswordEncoderConfigクラスで指定したPasswordEncoderを取得
     private final PasswordEncoder passwordEncoder;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-        // h2-console利用時に許可する設定
-//        http
-//                .authorizeRequests().antMatchers("/h2-console/**").permitAll()
-//                .and()
-//                .csrf().ignoringAntMatchers("/h2-console/**")
-//                .and()
-//                .headers().frameOptions().disable();
-//
-//        http
-//                .authorizeRequests()
-//                .mvcMatchers("/users/**").hasAuthority("ADMIN") // 「users以下はADMIN権限のみ」をSpringへ伝える
-//                .anyRequest().authenticated()
-//                .and()
-//                .formLogin()
-//                //.usernameParameter("aaa") デフォルトパラメータから変更したい場合はここに記載
-//                //.passwordParameter("bbb")
-//                .loginPage("/login");
+        http
+                .authorizeRequests()
+                .mvcMatchers("/login/**").permitAll()
+                .mvcMatchers("/users/**").hasAuthority("ADMIN")
+                .anyRequest().authenticated()
+                .and()
+                .formLogin()// フォーム認証
+                //.usernameParameter("") キー名を変更する場合
+                //.passwordParameter("") キー名を変更する場合
+                .loginPage("/login"); // /loginは認証不要
     }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService)
-                .passwordEncoder(passwordEncoder);
+        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder);
     }
 }

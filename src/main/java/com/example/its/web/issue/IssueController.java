@@ -6,17 +6,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/issues")
 @RequiredArgsConstructor
 public class IssueController {
-
     private final IssueService issueService;
 
     @GetMapping
@@ -30,18 +25,29 @@ public class IssueController {
         return "issues/creationForm";
     }
 
+
+    /**
+     * 2重サブミット問題 : ブラウザのリロードボタンが直前のリクエストを再実行する
+     * PRGパターン参照
+     */
     @PostMapping
     public String create(@Validated IssueForm form, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             return showCreationForm(form);
         }
         issueService.create(form.getSummary(), form.getDescription());
-        return "redirect:/issues";
+        return "redirect:/issues"; // リロードボタン対策 2重サブミット問題
     }
 
     @GetMapping("/{issueId}")
     public String showDetail(@PathVariable("issueId") long issueId, Model model) {
         model.addAttribute("issue", issueService.findById(issueId));
         return "issues/detail";
+    }
+
+    @PostMapping("/delete/{issueId}")
+    public String delete(@PathVariable("issueId") long issueId) {
+        issueService.deleteById(issueId);
+        return "redirect:/issues";
     }
 }

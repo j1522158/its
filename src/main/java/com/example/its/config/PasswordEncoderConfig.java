@@ -5,13 +5,11 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
 
-@Configuration // コンポーネントスキャンの対象とする
+@Configuration
 public class PasswordEncoderConfig {
 
-    @Bean // メソッドの戻り値のインスタンスがBean登録されるようになる
-    public PasswordEncoder passwordEncoder(){
-        // パスワードの保存に適した計算の遅いハッシュ関数
-        // ソルト付与, ストレッチングも自動で処理
+    @Bean
+    public PasswordEncoder passwordEncoder() {
         return new Pbkdf2PasswordEncoder();
     }
 }

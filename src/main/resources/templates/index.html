@@ -1,20 +1,16 @@
 <!DOCTYPE html>
-<!--フラグメントの機能により、lang="en"は省略-->
-<html lang="en" xmlns:th="http://www.thymeleaf.org"
-      th:replace="~{fragments/layout :: layout(~{::title}, ~{::body})}"> <!--thの定義 thymeleaf公式サイト3.1-->
-
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+      th:replace="~{fragments/layout :: layout(~{::title}, ~{::body})}">
 <head>
     <title>トップページ | 課題管理アプリケーション</title>
-    <!--<link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css">
-    <link href="https://fonts.googleapis.com/css?family=Philosopher" rel="stylesheet">-->
 </head>
-
 <body>
-    <div id="home" class="big-bg">
-        <div class="home-content wrapper">
-            <h2 class="page-title">課題管理アプリ</h2>
-            <a class="button primary" href="./issues/list.html" th:href="@{/issues}">課題一覧</a>
-        </div>
-    </div>
+<h1 class="mt-3">課題管理アプリケーション</h1>
+<ul>
+    <li><a href="./issues/list.html" th:href="@{/issues}">課題一覧</a></li>
+    <li sec:authorize="hasAuthority('ADMIN')"><a href="./users/list.html" th:href="@{/users}">ユーザー一覧</a></li>
+    <li><a href="./logout.html" th:href="@{/logout}">ログアウト</a></li>
+</ul>
 </body>
 </html>

@@ -18,5 +18,4 @@ public interface UserRepository {
 
     @Insert("insert into users (username, password, authority) values (#{username}, #{password}, #{authority})")
     void insert(String username, String password, String authority);
-
 }
