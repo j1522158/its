@@ -44,4 +44,10 @@ public class IssueController {
         model.addAttribute("issue", issueService.findById(issueId));
         return "issues/detail";
     }
+
+    @PostMapping("/delete/{issueId}")
+    public String delete(@PathVariable("issueId") long issueId) {
+        issueService.deleteById(issueId);
+        return "redirect:/issues";
+    }
 }
